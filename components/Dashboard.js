@@ -18,6 +18,7 @@ import { styled, useColorScheme } from "nativewind";
 const Dashboard = () => {
 
     const [nombre, setNombre] = useState("");
+    const [apellido, setApellido] = useState("")
     const [email, setEmail] = useState("")
     const { colorScheme, toggleColorScheme } = useColorScheme();
 
@@ -27,6 +28,7 @@ const Dashboard = () => {
 
      const dataArray = SnapshotUser.docs.map((doc) => doc.data());
      setNombre(dataArray[0].nombre);
+     setApellido(dataArray[0].apellido)
     }
    
 
@@ -34,7 +36,7 @@ const Dashboard = () => {
         <> 
             {
                colorScheme === "light"?
-               <IconThemeLigth toggleColorScheme={toggleColorScheme} />: <IconThemeBlack color="white" toggleColorScheme={toggleColorScheme}/>
+               <IconThemeLigth toggleColorScheme={toggleColorScheme} />:<IconThemeBlack color="white" toggleColorScheme={toggleColorScheme}/>
             }
         </>
     )
@@ -60,8 +62,11 @@ const Dashboard = () => {
         <HStack className="flex w-[100%] justify-end py-5 pr-2 " >
          <MostrandoIconos/>
         </HStack>
-        <HStack className="my-10  w-[100%]">
-         <Text className={`px-1 py-5 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`}>Bienvenido. {nombre}</Text>
+        <HStack className="my-1">
+           <Text className={`px-5 pt-5 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`} style={{fontFamily: 'inter-regular'}} >Bienvenido.</Text>
+        </HStack>
+        <HStack>
+            <Text className={`px-5 pt-4 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`}style={{fontFamily: 'inter-medium'}}  >{nombre}{" "}{apellido}</Text>
         </HStack>
     </Container>
   )

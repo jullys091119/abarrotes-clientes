@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Font from 'expo-font';
+
 
 //screen
 import Login from './components/Login';
@@ -21,8 +23,15 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   useEffect(() => {
-    
-    // Aquí puedes realizar operaciones relacionadas con Firebase si es necesario
+    const loadFonts = async () => {
+      await Font.loadAsync({
+        'inter-medium': require('./assets/fonts/Inter/static/Inter-Medium.ttf'),
+        'inter-thin': require('./assets/fonts/Inter/static/Inter-Thin.ttf'),
+        'inter-regular': require('./assets/fonts/Inter/static/Inter-Regular.ttf')
+      });
+    };
+
+    loadFonts();
   }, []);
 
   return (
@@ -57,6 +66,7 @@ export default function App() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
+              headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
              }}
             >
 
