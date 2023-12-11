@@ -2,11 +2,41 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { Audio } from 'expo-av';
 
 const  BarcodeScanner = () => {
 
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [sound, setSound] = useState();
+
+  useEffect(() => {
+    const loadSound = async () => {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/sounds/beep.mp3')
+      );
+      setSound(sound);
+    };
+
+    loadSound();
+
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
+  
+  const playSound = async () => {
+    try {
+      if (sound) {
+        await sound.replayAsync();
+      }
+    } catch (error) {
+      console.error('Error al reproducir el sonido', error);
+    }
+  };
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -19,6 +49,7 @@ const  BarcodeScanner = () => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    playSound()
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
