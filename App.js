@@ -10,16 +10,11 @@ import * as Font from 'expo-font';
 //screen
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import BarcodeScanner from './helpers/BarcodeScanner';
+import MenuDashboard from './components/MenuDashboard';
 
 //helpers
-import { fetchData } from './helpers/configFirebase';
-
-
-
 const Stack = createNativeStackNavigator();
-
-
-
 
 export default function App() {
   useEffect(() => {
@@ -54,6 +49,23 @@ export default function App() {
                 },
               }}
             />
+
+            <Stack.Screen
+              name='MenuDashboard'
+              component={MenuDashboard}
+              options={{
+                headerTitle: "",
+                headerStyle: {
+                  backgroundColor: '#f4511e',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+              }}
+            ></Stack.Screen>
+
             <Stack.Screen
              name='Dashboard'
              component={Dashboard}
@@ -69,8 +81,24 @@ export default function App() {
               headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
              }}
             >
-
             </Stack.Screen>
+
+            <Stack.Screen
+              name='BarcodeScanner'
+              component={BarcodeScanner}
+              options={{
+                headerTitle: "",
+                headerStyle: {
+                  backgroundColor: '#f4511e',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+              }}
+            ></Stack.Screen>
+
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

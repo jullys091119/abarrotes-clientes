@@ -13,10 +13,10 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { IconThemeBlack, IconThemeLigth } from "../helpers/icons/icons";
 import { styled, useColorScheme } from "nativewind";
-
+import MenuDashboard from "./MenuDashboard";
 
 const Dashboard = () => {
-
+   
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("")
     const [email, setEmail] = useState("")
@@ -67,6 +67,9 @@ const Dashboard = () => {
         </HStack>
         <HStack>
             <Text className={`px-5 pt-4 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`}style={{fontFamily: 'inter-medium'}}  >{nombre}{" "}{apellido}</Text>
+        </HStack>
+        <HStack>
+          <MenuDashboard/>
         </HStack>
     </Container>
   )

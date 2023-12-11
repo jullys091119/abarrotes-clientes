@@ -18,7 +18,7 @@ const Login = ({navigation}) => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-         navigation.push('Dashboard');
+        navigation.push('Dashboard');
         // ...
       })
       .catch((error) => {
