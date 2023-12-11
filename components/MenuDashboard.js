@@ -10,7 +10,6 @@ const MenuDashboard = () => {
 
   return (
     <HStack className="min-w-full min-h-full flex flex-1 flex-col wrap py-14 px-2">
-     
       <Avatar bg="white" size="lg">
         <View
           style={{
