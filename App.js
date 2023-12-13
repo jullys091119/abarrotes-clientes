@@ -6,6 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Font from "expo-font";
 import { AppProvider } from "./context/context";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
+
 
 //screen
 import Login from "./components/Login";
@@ -33,91 +36,93 @@ export default function App() {
   return (
     <>
       <AppProvider>
-        <NativeBaseProvider>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  headerTitle: "",
-                  title: "My home",
-                  headerStyle: {
-                    backgroundColor: "#f4511e",
-                  },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                }}
-              />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NativeBaseProvider>
+            <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    headerTitle: "",
+                    title: "My home",
+                    headerStyle: {
+                      backgroundColor: "#f4511e",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  }}
+                />
 
-              <Stack.Screen
-                name="MenuDashboard"
-                component={MenuDashboard}
-                options={{
-                  headerTitle: "",
-                  headerStyle: {
-                    backgroundColor: "#f4511e",
-                  },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                  headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
-                }}
-              ></Stack.Screen>
+                <Stack.Screen
+                  name="MenuDashboard"
+                  component={MenuDashboard}
+                  options={{
+                    headerTitle: "",
+                    headerStyle: {
+                      backgroundColor: "#f4511e",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                    headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+                  }}
+                ></Stack.Screen>
 
-              <Stack.Screen
-                name="Dashboard"
-                component={Dashboard}
-                options={{
-                  headerTitle: "",
-                  headerStyle: {
-                    backgroundColor: "#f4511e",
-                  },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                  headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
-                }}
-              ></Stack.Screen>
+                <Stack.Screen
+                  name="Dashboard"
+                  component={Dashboard}
+                  options={{
+                    headerTitle: "",
+                    headerStyle: {
+                      backgroundColor: "#f4511e",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                    headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+                  }}
+                ></Stack.Screen>
 
-              <Stack.Screen
-                name="BarcodeScanner"
-                component={BarcodeScanner}
-                options={{
-                  headerTitle: "",
-                  headerStyle: {
-                    backgroundColor: "#f4511e",
-                  },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                  headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
-                }}
-              ></Stack.Screen>
+                <Stack.Screen
+                  name="BarcodeScanner"
+                  component={BarcodeScanner}
+                  options={{
+                    headerTitle: "",
+                    headerStyle: {
+                      backgroundColor: "#f4511e",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                    headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+                  }}
+                ></Stack.Screen>
 
-              <Stack.Screen
-                name="RegistroProducto"
-                component={RegistroProducto}
-                options={{
-                  headerTitle: "",
-                  headerStyle: {
-                    backgroundColor: "#f4511e",
-                  },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
-                  },
-                  headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
-                }}
-              ></Stack.Screen>
-            </Stack.Navigator>
-          </NavigationContainer>
-        </NativeBaseProvider>
+                <Stack.Screen
+                  name="RegistroProducto"
+                  component={RegistroProducto}
+                  options={{
+                    headerTitle: "",
+                    headerStyle: {
+                      backgroundColor: "#f4511e",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                    headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+                  }}
+                ></Stack.Screen>
+              </Stack.Navigator>
+            </NavigationContainer>
+          </NativeBaseProvider>
+        </ApplicationProvider>
       </AppProvider>
 
       <StatusBar style="auto" />
