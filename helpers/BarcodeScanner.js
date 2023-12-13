@@ -1,10 +1,13 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Audio } from 'expo-av';
+import { AppContext } from '../context/context';
 
-const  BarcodeScanner = () => {
+const  BarcodeScanner = ({navigation}) => {
+
+  const {setCodeScanner} = useContext(AppContext)
 
 
   const [hasPermission, setHasPermission] = useState(null);
@@ -49,8 +52,10 @@ const  BarcodeScanner = () => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    setCodeScanner(data)
+    navigation.navigate("RegistroProducto")
     playSound()
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   if (hasPermission === null) {
@@ -62,13 +67,16 @@ const  BarcodeScanner = () => {
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
+      {
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={StyleSheet.absoluteFillObject}
+        />
+
+      }
       {scanned && (
         <TouchableOpacity
-          onPress={() => setScanned(false)}
+          onPress={() => {setScanned(false),setCodeScanner("");}}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>Escanea Nuevo Producto</Text>
@@ -101,3 +109,5 @@ const styles = StyleSheet.create({
 });
 
 export default BarcodeScanner
+
+

@@ -14,7 +14,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "expo": "~49.0.15",
     "expo-av": "~13.4.1",
-    "expo-barcode-scanner": "^12.7.0",
+    "expo-barcode-scanner": "~12.5.3",
     "expo-firebase-app": "^2.0.0",
     "expo-firebase-auth": "^2.0.0",
     "expo-font": "~11.4.0",
