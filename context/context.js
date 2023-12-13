@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
  const [clasificacion, setClasificacion] = useState("");
  const [proveedor, setProveedor] = useState("");
  const [inventario, setInventario] = useState("")
-
+ const [visible, setVisible] = useState(false)
   return (
     <AppContext.Provider value={{ 
      setCodeScanner,
@@ -23,6 +23,8 @@ const AppProvider = ({ children }) => {
      setPrecio,
      setClasificacion,
      setInventario,
+     visible,
+     setVisible,
      inventario,
      setProveedor,
      nombre,
