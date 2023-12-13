@@ -41,7 +41,6 @@ const Dashboard = () => {
         </>
     )
      
-    console.log(colorScheme, "color")
    
     useEffect(()=> {
          // Verificar si hay un usuario autenticado
