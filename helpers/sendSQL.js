@@ -49,3 +49,13 @@ const insertarProducto = async (codigoBarras,nombre, costo, precio, clasificacio
 
 export default insertarProducto
 
+export const consultarProducto = async () => {
+  const data = []
+  const querySnapshot = await getDocs(collection(db, "productos"));
+    querySnapshot.forEach((doc) => {
+      // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+      //  console.log(`${doc.id} => ${doc.data()}`);
+      data.push(doc.data())
+  });
+  return data
+}

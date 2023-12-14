@@ -10,12 +10,16 @@ const MenuDashboard = () => {
     };
 
     const registroProducto = () => {
-    
-      navigation.navigate("RegistroProducto")
+      navigation.navigate("RegistroProducto");
     }
+
+    const abrirInventario = () => {
+      navigation.navigate("Inventario");
+    } 
 
 
   return (
+
     <HStack className="min-w-full flex flex-1 justify-evenly wrap py-14 px-2">
       <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center"}} onPress={()=>registroProducto()}>
         <Avatar bg="white" size="lg">
@@ -25,28 +29,20 @@ const MenuDashboard = () => {
               alt="Imagen"
             />
         </Avatar>
+        <Text>Registro de Productos</Text>
       </Card>
-      
-      <Avatar bg="white" size="lg">
-        <View
-          style={{
-            overflow: "hidden",
-            width: 70,
-            height: 70,
-            padding: 10,
-            backgroundColor: "white",
-            borderRadius: 99,
-          }}
-          onTouchEnd={()=>registroProducto()}
-        >
+
+      <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center"}} onPress={()=>abrirInventario()}>
+        <Avatar bg="white" size="lg">
           <Image
-            source={require("../assets/icons/ventas.png")}
+            source={require("../assets/icons/inventario.png")}
             style={{ flex: 1, width: 90, height: 90 }}
             alt="Imagen"
           />
-        </View>
-      </Avatar>
-     
+        </Avatar>
+        <Text>Productos</Text>
+      </Card>
+      
     </HStack>
   );
 };
