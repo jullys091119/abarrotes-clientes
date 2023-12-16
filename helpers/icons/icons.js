@@ -76,6 +76,7 @@ export const IconSave = () => {
       setInventario,
       visible,
       setVisible,
+      setFechaCaducidad,
     inventario} = useContext(AppContext);
 
 
@@ -96,6 +97,7 @@ export const IconSave = () => {
       setClasificacion('')
       setProveedor('')
       setInventario('')
+      setFechaCaducidad("")
     }
     return (
       visible && (

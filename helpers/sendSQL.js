@@ -25,7 +25,7 @@ const insertarProducto = async (codigoBarras,nombre, costo, precio, clasificacio
          precio: precio,
          clasificacion: clasificacion,
          proveedor: proveedor,
-         inventario: inventario
+         inventario: inventario,
        });
        alert("Producto agregado")
       } else {
@@ -55,7 +55,10 @@ export const consultarProducto = async () => {
     querySnapshot.forEach((doc) => {
       // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
       //  console.log(`${doc.id} => ${doc.data()}`);
-      data.push(doc.data())
+      data.push({
+        id: doc.id,
+        productos: doc.data(),
+      })
   });
   return data
 }
