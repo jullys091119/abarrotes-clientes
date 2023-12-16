@@ -42,7 +42,7 @@ const RegistroProducto = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}
       >
-        <View className=" flex-1 min-h-full justify-start mx-5 my-20">
+        <View  style={{minHeight: "100%", marginHorizontal: 20, marginVertical: 60, gap: 15}}>
           <Input
             className="my-2"
             variant="underlined"
@@ -93,7 +93,7 @@ const RegistroProducto = ({ navigation }) => {
             onChangeText={(text) => setInventario(text)}
             value={inventario}
           />
-          <View className=" left-1/3  mx-4 my-16">
+          <View style={{display: "flex", alignItems: "center", paddingVertical: 100,  justifyContent:"center"}}>
             <IconBarcodeScanner openScanner={openScanner} />
             <IconSave/>
           </View>
