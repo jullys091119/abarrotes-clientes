@@ -1,13 +1,20 @@
-import { ScrollView } from "native-base";
-import { consultarProducto } from "../helpers/sendSQL";
 import React, { useEffect, useState } from 'react';
-import { DataTable } from 'react-native-paper';
+import { ScrollView, Text } from 'native-base';
+import { consultarProducto } from '../helpers/sendSQL';
+import { View, StyleSheet } from 'react-native';
+import { DataTable, Provider, Portal, Dialog, Button, TextInput } from 'react-native-paper';
 import moment from 'moment';
 
 const Inventario = () => {
-
   const [producto, setProducto] = useState([]);
-  const [fechaActual, setFechaActual] = useState(moment());
+  const [fechaActual] = useState(moment());
+  const [visible, setVisible] = useState(false);
+
+  // Estados locales del modal
+  const [nombreProducto, setNombreProducto] = useState('');
+  const [inventarioProducto, setInventarioProducto] = useState('');
+  const [caducidadProducto, setCaducidadProducto] = useState('');
+  const [idProducto, setIdProducto] = useState('');
 
   const recibirDatosProductos = async () => {
     const data = await consultarProducto();
@@ -19,82 +26,119 @@ const Inventario = () => {
         fechaCaducidad: undefined,
         diasParaCaducar: undefined,
       };
-      
+
       if (el.productos.caducidad && el.productos.caducidad.seconds) {
-       
-        //formate la fecha 
         const fechaCaducidad = moment.unix(el.productos.caducidad.seconds)
           .milliseconds(el.productos.caducidad.nanoseconds / 1e6).toDate();
-           
-        //toma la diferencia entre las dos fechas, se tiene que especificar que la quieres 
-        //la diferencia en dias
+
         const diferenciaDias = moment(fechaCaducidad).diff(moment(fechaActual), 'days');
 
-
-         //La fecha se formatea 2023/10/15
-        productoMostrar.fechaCaducidad = moment(fechaCaducidad).format('DD/MM/YYYY');
-        
-        //te da el numero de dias  de diferencia
-        productoMostrar.diasParaCaducar = diferenciaDias
+        if (!isNaN(fechaCaducidad.getTime())) {
+          productoMostrar.fechaCaducidad = moment(fechaCaducidad).format('DD/MM/YYYY');
+          productoMostrar.diasParaCaducar = diferenciaDias;
+        }
       }
-      
-      //por ultimo hacemos un push para ingresar los datos al objeto
+
       productosMostrar.push(productoMostrar);
     });
-    
-    //tambie metemos todo el objeto al hook para recorrerlo
+
     setProducto(productosMostrar);
+  };
+
+  const tomandoIdDelProducto = (id, nombre, inventario, caducidad) => {
+    setIdProducto(id);
+    setNombreProducto(nombre);
+    setInventarioProducto(inventario);
+    setCaducidadProducto(caducidad);
   };
 
   useEffect(() => {
     recibirDatosProductos();
-    console.log(producto)
   }, []);
 
-  return (
-    <ScrollView>
-      <DataTable>
-        <DataTable.Header>
-          <DataTable.Title>Productos</DataTable.Title>
-          <DataTable.Title numeric style={{ marginRight: 12 }}>Inventario</DataTable.Title>
-          <DataTable.Title numeric>Caducidad</DataTable.Title>
-        </DataTable.Header>
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
 
-        {producto.map((item, index) => (
-          <DataTable.Row
-            key={item.id}
-            style={{
-              backgroundColor:
-              // si hay dias de diferencia y  estos son menores a 7 entonces hacer algo
-                item.diasParaCaducar !== undefined && item.diasParaCaducar <= 7
-                  ? '#ffeb3b' // Cambiar a tu color de warning
-                  : 'white',
-            }}
-          >
-            <DataTable.Cell>{item.productos.nombre}</DataTable.Cell>
-            <DataTable.Cell
-              numeric
+  return (
+    <Provider>
+      <ScrollView>
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title>Productos</DataTable.Title>
+            <DataTable.Title numeric style={{ marginRight: 12 }}>
+              Inventario
+            </DataTable.Title>
+            <DataTable.Title numeric>Caducidad</DataTable.Title>
+          </DataTable.Header>
+
+          {producto.map((item, index) => (
+            <DataTable.Row
+              key={item.id}
               style={{
-                display: "flex",
-                justifyContent: "center",
-                marginLeft: 30,
-                backgroundColor: item.productos.inventario == 0 ? "red" : "#4CAF50",
-                color: item.productos.inventario === 0 ? "white" : "black",
+                backgroundColor:
+                  item.diasParaCaducar !== undefined && item.diasParaCaducar <= 7
+                    ? '#ffeb3b'
+                    : 'white',
+              }}
+              onPress={() => {
+                tomandoIdDelProducto(
+                  item.id,
+                  item.productos.nombre,
+                  item.productos.inventario,
+                  item.fechaCaducidad
+                );
+                showDialog();
               }}
             >
-              {item.productos.inventario}
-            </DataTable.Cell>
-            <DataTable.Cell numeric>
-              {item.diasParaCaducar !== undefined
-                ? item.diasParaCaducar <= 7
-                  ? `${item.fechaCaducidad} (En ${item.diasParaCaducar} días)`
-                  : item.fechaCaducidad
-                : '-'}
-            </DataTable.Cell>
-          </DataTable.Row>
-        ))}
-      </DataTable>
-    </ScrollView>
+              <DataTable.Cell>{item.productos.nombre}</DataTable.Cell>
+              <DataTable.Cell
+                numeric
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginLeft: 30,
+                  backgroundColor: item.productos.inventario == 0 ? 'red' : '#01c23770',
+                }}
+              >
+                <Text style={{ color: item.productos.inventario == 0 ? 'white' : 'black' }}>
+                  {item.productos.inventario}
+                </Text>
+              </DataTable.Cell>
+              <DataTable.Cell numeric>
+                {item.diasParaCaducar !== undefined
+                  ? item.diasParaCaducar <= 7
+                    ? `${item.fechaCaducidad} (En ${item.diasParaCaducar} días)`
+                    : item.fechaCaducidad
+                  : '-'}
+              </DataTable.Cell>
+            </DataTable.Row>
+          ))}
+        </DataTable>
+      </ScrollView>
+
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>Actualizar campos</Dialog.Title>
+          <Dialog.Content style={{display: "flex", gap:20}}>
+            <TextInput
+             outlined="disable"
+             label="Producto"
+             onChangeText={(text) => setNombreProducto(text)}
+             value={nombreProducto}
+            />
+            <TextInput 
+              label="Inventario"
+              onChangeText={(text) => setInventarioProducto(text)}
+              value={inventarioProducto}
+            />
+           
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>Done</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    </Provider>
   );
 };
 
