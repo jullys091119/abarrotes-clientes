@@ -30,8 +30,9 @@ const Dashboard = () => {
      setNombre(dataArray[0].nombre);
      setApellido(dataArray[0].apellido)
     }
-   
 
+
+    
     const MostrandoIconos = ( ) => (
         <> 
             {
