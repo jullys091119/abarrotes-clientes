@@ -1,6 +1,7 @@
 import {addDoc, setDoc, doc,getDocs, collection, updateDoc} from "firebase/firestore";
 import { Alert } from "react-native";
 import { db } from "./configFirebase";
+import moment from 'moment';
 
 const validarProductoExiste = async ( ) => {
   const productosIds = []
@@ -66,12 +67,13 @@ export const consultarProducto = async () => {
 
 export const actualizarProductos = async (idProducto, nombre, inventario, caducidad) => {
   console.log(idProducto, nombre, inventario, caducidad)
+
   const productoRef = doc(db, "productos", idProducto);
    try {
     await updateDoc(productoRef, {
       nombre:nombre,
       inventario:inventario,
-      caducidad:caducidad
+      caducidad: caducidad
     })
    } catch (error) {
     console.log("no se pueden actualizar los datos")
