@@ -58,17 +58,15 @@ const Dashboard = () => {
   
     }, [])
   return (
-    <Container className={`flex-1 max-w-full  ${colorScheme === "dark" ? "bg-[#0f172a]" : "bg-[#ffffff]"}`}>
-        <HStack className="flex w-[100%] justify-end py-5 pr-2 " >
+    <Container style={{ maxWidth: "100%", minHeight: "100%"}}>
+        {/* <HStack>
          <MostrandoIconos/>
+        </HStack> */}
+        <HStack style={{display: "flex", flexDirection: "column", paddingTop:60}}>
+          <Text style={{fontFamily: 'inter-regular', fontSize: 40, paddingTop:20, marginLeft: 10}} >Bienvenido.</Text>
+          <Text style={{fontFamily: 'inter-medium', marginLeft: 10, fontSize: 20}}>{nombre}{" "}{apellido}</Text>
         </HStack>
-        <HStack className="my-1">
-           <Text className={`px-5 pt-5 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`} style={{fontFamily: 'inter-regular'}} >Bienvenido.</Text>
-        </HStack>
-        <HStack>
-            <Text className={`px-5 pt-4 text-[30px] ${colorScheme === "dark"?"text-[#ffffff]": "text-[#000000]"}`}style={{fontFamily: 'inter-medium'}}  >{nombre}{" "}{apellido}</Text>
-        </HStack>
-        <HStack>
+        <HStack style={{marginTop: 30,width: "100%", display:"flex", justifyContent: "center"}}>
           <MenuDashboard/>
         </HStack>
     </Container>

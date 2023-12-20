@@ -20,8 +20,8 @@ const MenuDashboard = () => {
 
   return (
 
-    <HStack className="min-w-full flex flex-1 justify-evenly wrap py-14 px-2">
-      <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center"}} onPress={()=>registroProducto()}>
+    <HStack style={{gap: 10}}>
+      <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center", borderRadius: 20}} onPress={()=>registroProducto()}>
         <Avatar bg="white" size="lg">
             <Image
               source={require("../assets/icons/db.png")}
@@ -32,7 +32,7 @@ const MenuDashboard = () => {
         <Text>Registro de Productos</Text>
       </Card>
 
-      <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center"}} onPress={()=>abrirInventario()}>
+      <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center", borderRadius:20}} onPress={()=>abrirInventario()}>
         <Avatar bg="white" size="lg">
           <Image
             source={require("../assets/icons/inventario.png")}
