@@ -100,8 +100,9 @@ const Inventario = () => {
                 numeric
                 style={{
                   display: 'flex',
+                  maxWidth: 50,
                   justifyContent: 'center',
-                  marginLeft: 30,
+                  marginLeft: 40,
                   backgroundColor: item.productos.inventario == 0 ? 'red' : '#01c23770',
                 }}
               >
