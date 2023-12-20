@@ -29,7 +29,7 @@ const MenuDashboard = () => {
               alt="Imagen"
             />
         </Avatar>
-        <Text>Registro de Productos</Text>
+        <Text style={{ paddingTop: 10}}> Registro Productos</Text>
       </Card>
 
       <Card style={{width: 150, height: 190, display:"flex", justifyContent: "center", alignItems: "center", borderRadius:20}} onPress={()=>abrirInventario()}>
@@ -40,7 +40,7 @@ const MenuDashboard = () => {
             alt="Imagen"
           />
         </Avatar>
-        <Text>Productos</Text>
+        <Text style={{paddingTop: 10}}>Productos</Text>
       </Card>
       
     </HStack>

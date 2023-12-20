@@ -63,8 +63,8 @@ const Dashboard = () => {
          <MostrandoIconos/>
         </HStack> */}
         <HStack style={{display: "flex", flexDirection: "column", paddingTop:60}}>
-          <Text style={{fontFamily: 'inter-regular', fontSize: 40, paddingTop:20, marginLeft: 10}} >Bienvenido.</Text>
-          <Text style={{fontFamily: 'inter-medium', marginLeft: 10, fontSize: 20}}>{nombre}{" "}{apellido}</Text>
+          <Text style={{fontFamily: 'inter-regular', fontSize: 40, paddingTop:20, marginLeft: 20}} >Bienvenido.</Text>
+          <Text style={{fontFamily: 'inter-medium', marginLeft: 25, fontSize: 20}}>{nombre}{" "}{apellido}</Text>
         </HStack>
         <HStack style={{marginTop: 30,width: "100%", display:"flex", justifyContent: "center"}}>
           <MenuDashboard/>

@@ -119,7 +119,7 @@ const Inventario = () => {
       </ScrollView>
 
       <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
+        <Dialog visible={visible} onDismiss={hideDialog} style={{backgroundColor: "white"}}>
           <Dialog.Title>Actualizar campos</Dialog.Title>
           <Dialog.Content style={{display: "flex", gap:20}}>
             <TextInput
