@@ -4,12 +4,16 @@ import { consultarProducto } from '../helpers/sendSQL';
 import { View, StyleSheet } from 'react-native';
 import { DataTable, Provider, Portal, Dialog, Button, TextInput } from 'react-native-paper';
 import moment from 'moment';
+import { es, registerTranslation } from 'react-native-paper-dates'
+registerTranslation('es', es)
+import { DatePickerInput } from 'react-native-paper-dates';
+import { actualizarProductos } from '../helpers/sendSQL';
 
 const Inventario = () => {
   const [producto, setProducto] = useState([]);
   const [fechaActual] = useState(moment());
   const [visible, setVisible] = useState(false);
-
+  const [inputDate, setInputDate] = React.useState(undefined)
   // Estados locales del modal
   const [nombreProducto, setNombreProducto] = useState('');
   const [inventarioProducto, setInventarioProducto] = useState('');
@@ -54,6 +58,7 @@ const Inventario = () => {
 
   useEffect(() => {
     recibirDatosProductos();
+    
   }, []);
 
   const showDialog = () => setVisible(true);
@@ -125,16 +130,27 @@ const Inventario = () => {
              label="Producto"
              onChangeText={(text) => setNombreProducto(text)}
              value={nombreProducto}
+             mode='outlined'
             />
             <TextInput 
               label="Inventario"
               onChangeText={(text) => setInventarioProducto(text)}
               value={inventarioProducto}
+              mode='outlined'
+              keyboardType='numeric'
+            />
+            
+            <DatePickerInput
+              locale="es"
+              label="Caducidad"
+              value={inputDate?inputDate:moment(caducidadProducto, "YYYY-MM-DDTHH:mm:ss").toDate()}
+              onChange={(d) => setInputDate(d)}
+              keyboardType='numeric'
             />
            
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={hideDialog}>Done</Button>
+            <Button onPress={()=> {actualizarProductos(idProducto, nombreProducto, inventarioProducto, inputDate),hideDialog()}}>Actualizar</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
