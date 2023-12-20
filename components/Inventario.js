@@ -30,13 +30,10 @@ const Inventario = () => {
         fechaCaducidad: undefined,
         diasParaCaducar: undefined,
       };
-
       if (el.productos.caducidad && el.productos.caducidad.seconds) {
         const fechaCaducidad = moment.unix(el.productos.caducidad.seconds)
           .milliseconds(el.productos.caducidad.nanoseconds / 1e6).toDate();
-
         const diferenciaDias = moment(fechaCaducidad).diff(moment(fechaActual), 'days');
-
         if (!isNaN(fechaCaducidad.getTime())) {
           productoMostrar.fechaCaducidad = moment(fechaCaducidad).format('DD/MM/YYYY');
           productoMostrar.diasParaCaducar = diferenciaDias;
@@ -58,7 +55,6 @@ const Inventario = () => {
 
   useEffect(() => {
     recibirDatosProductos();
-    
   }, []);
 
   const showDialog = () => setVisible(true);
@@ -143,10 +139,10 @@ const Inventario = () => {
             
             <DatePickerInput
               locale="es"
-              label="Caducidad"
-              value={inputDate?inputDate:moment(caducidadProducto, "YYYY-MM-DDTHH:mm:ss").toDate()}
               onChange={(d) => setInputDate(d)}
               keyboardType='numeric'
+              value={moment(caducidadProducto, "DD MM YYYY hh:mm:ss")
+            }
             />
            
           </Dialog.Content>
