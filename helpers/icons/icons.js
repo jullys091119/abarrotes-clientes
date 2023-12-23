@@ -3,6 +3,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import insertarProducto from "../sendSQL";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/context";
+import { useNavigation } from "@react-navigation/native";
+
 
 export const IconThemeLigth = ({toggleColorScheme, color}) => (
 
@@ -132,13 +134,36 @@ export const IconSave = () => {
          renderInPortal={false}
          shadow={2}
          size="sm"
-         style={{backgroundColor: "#f4511e"}}
+         style={{backgroundColor: "green", position: "absolute", bottom: 90, right: 10}}
          icon={
            <Icon
              as={MaterialCommunityIcons}
              color="white"
              name="plus"
-             size="sm"
+             size="lg"
+           />
+         }
+       />
+     </Center>
+   );
+ };
+
+ export const FabIconAgregarNuevoVenta = (props) => {
+  const  {setScanned,setCodeScanner, scanned} = useContext(AppContext)
+   return (
+     <Center>
+       <Fab
+         onPress={()=> {setScanned(false), props.concretarVenta()}}
+         renderInPortal={false}
+         shadow={2}
+         size="sm"
+         style={{backgroundColor: "#f4511e"}}
+         icon={
+           <Icon
+             as={MaterialCommunityIcons}
+             color="white"
+             name="shopping-outline"
+             size="xs"
            />
          }
        />
