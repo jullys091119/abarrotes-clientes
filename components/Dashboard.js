@@ -58,7 +58,7 @@ const Dashboard = () => {
   
     }, [])
   return (
-    <Container style={{ maxWidth: "100%", minHeight: "100%"}}>
+    <Container style={{ maxWidth: "100%", minHeight: "100%", paddingHorizontal: 17}}>
         {/* <HStack>
          <MostrandoIconos/>
         </HStack> */}

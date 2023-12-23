@@ -1,4 +1,4 @@
-import { Icon} from "native-base"
+import { Icon, Center, Box, Fab} from "native-base"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import insertarProducto from "../sendSQL";
 import { useContext, useEffect, useState } from "react";
@@ -122,4 +122,26 @@ export const IconSave = () => {
     );
 }
   
-  
+
+ export const FabIconAgregarNuevoProducto = () => {
+  const  {setScanned,setCodeScanner} = useContext(AppContext)
+   return (
+     <Center>
+       <Fab
+         onPress={()=> {setScanned(false), setCodeScanner(" ")}}
+         renderInPortal={false}
+         shadow={2}
+         size="sm"
+         style={{backgroundColor: "#f4511e"}}
+         icon={
+           <Icon
+             as={MaterialCommunityIcons}
+             color="white"
+             name="plus"
+             size="sm"
+           />
+         }
+       />
+     </Center>
+   );
+ };

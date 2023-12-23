@@ -5,12 +5,13 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Audio } from 'expo-av';
 import { AppContext } from '../context/context';
 
-const  BarcodeScanner = ({navigation, onBarCodeScanned}) => {
-  const {setCodeScanner} = useContext(AppContext)
+
+const  BarcodeScannerVenta = ({navigation, onBarCodeScanned}) => {
+  const {setCodeScanner, setScanned, scanned} = useContext(AppContext)
 
 
   const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
+
   const [sound, setSound] = useState();
 
   useEffect(() => {
@@ -52,9 +53,8 @@ const  BarcodeScanner = ({navigation, onBarCodeScanned}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setCodeScanner(data)
-     navigation.navigate("RegistroProducto")
+    onBarCodeScanned(data)
     playSound()
-    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   if (hasPermission === null) {
@@ -71,16 +71,7 @@ const  BarcodeScanner = ({navigation, onBarCodeScanned}) => {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-
       }
-      {scanned && (
-        <TouchableOpacity
-          onPress={() => {setScanned(false),setCodeScanner("");}}
-          style={styles.buttonContainer}
-        >
-          <Text style={styles.buttonText}>Escanea Nuevo Producto</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
@@ -103,10 +94,10 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: "center",
     fontSize: 25,
-    padding: 15
+   
   },
 });
 
-export default BarcodeScanner
+export default BarcodeScannerVenta
 
 

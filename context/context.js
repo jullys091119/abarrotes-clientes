@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
  const [proveedor, setProveedor] = useState("");
  const [inventario, setInventario] = useState("")
  const [visible, setVisible] = useState(false)
+ const [scanned, setScanned] = useState(false);
 
   return (
     <AppContext.Provider value={{ 
@@ -24,16 +25,8 @@ const AppProvider = ({ children }) => {
      setPrecio,
      setClasificacion,
      setInventario,
-     //setFechasDeCaducidad,
-    //  setNombreProducto,
-    //  setInventarioProducto,
-    //  setCaducidadProducto,
-    //  setIdProducto,
-    //  caducidadProducto,
-    //  nombreProducto,
-    //  inventarioProducto,
-    //  fechasDeCaducidad,
-    //  idProducto,
+     setScanned,
+     scanned,
      visible,
      setVisible,
      inventario,

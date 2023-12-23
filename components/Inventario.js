@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text } from 'native-base';
 import { consultarProducto } from '../helpers/sendSQL';
-import { View, StyleSheet } from 'react-native';
 import { DataTable, Provider, Portal, Dialog, Button, TextInput } from 'react-native-paper';
 import moment from 'moment';
 import { es, registerTranslation } from 'react-native-paper-dates'
