@@ -17,6 +17,7 @@ import BarcodeScanner from "./helpers/BarcodeScanner";
 import MenuDashboard from "./components/MenuDashboard";
 import RegistroProducto from "./components/RegistroProducto";
 import Inventario from "./components/Inventario";
+import Venta from "./components/Venta";
 
 //helpers
 const Stack = createNativeStackNavigator();
@@ -124,6 +125,21 @@ export default function App() {
                   <Stack.Screen
                     name="Inventario"
                     component={Inventario}
+                    options={{
+                      headerTitle: "",
+                      headerStyle: {
+                        backgroundColor: "#f4511e",
+                      },
+                      headerTintColor: "#fff",
+                      headerTitleStyle: {
+                        fontWeight: "bold",
+                      },
+                      headerBackVisible: false, // Esto debería ocultar la flecha de retroceso
+                    }}
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="Venta"
+                    component={Venta}
                     options={{
                       headerTitle: "",
                       headerStyle: {

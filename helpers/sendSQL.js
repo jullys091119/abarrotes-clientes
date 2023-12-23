@@ -1,7 +1,9 @@
-import {addDoc, setDoc, doc,getDocs, collection, updateDoc} from "firebase/firestore";
+import {addDoc, setDoc, doc,getDocs, collection, updateDoc, query, where, getDoc} from "firebase/firestore";
 import { Alert } from "react-native";
 import { db } from "./configFirebase";
 import moment from 'moment';
+import { useContext } from "react";
+import { AppContext } from "../context/context";
 
 const validarProductoExiste = async ( ) => {
   const productosIds = []
@@ -50,12 +52,11 @@ const insertarProducto = async (codigoBarras,nombre, costo, precio, clasificacio
 
 export default insertarProducto
 
-export const consultarProducto = async () => {
+export const consultarProducto = async (codigoBarras) => {
+  console.log(codigoBarras, "este es el codigo de barras")
   const data = []
   const querySnapshot = await getDocs(collection(db, "productos"));
     querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-      //  console.log(`${doc.id} => ${doc.data()}`);
       data.push({
         id: doc.id,
         productos: doc.data(),
@@ -67,7 +68,7 @@ export const consultarProducto = async () => {
 
 export const actualizarProductos = async (idProducto, nombre, inventario, caducidad) => {
   console.log(idProducto, nombre, inventario, caducidad)
-
+  console.log("EL id del prodcucto puede ser actualizado");
   const productoRef = doc(db, "productos", idProducto);
    try {
     await updateDoc(productoRef, {
@@ -79,3 +80,22 @@ export const actualizarProductos = async (idProducto, nombre, inventario, caduci
     console.log("no se pueden actualizar los datos")
    }
 }
+
+
+export const agregarProductoVenta = async (codigoBarras ) => {
+  let productos = []
+  const querySnapshot = await getDocs(collection(db, "productos"));
+  querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  if(doc.id === codigoBarras) {
+    productos.push({
+      nombre: doc.data().nombre,
+      precio: doc.data().precio
+    });
+  }
+  });
+
+ return productos
+}
+
+
