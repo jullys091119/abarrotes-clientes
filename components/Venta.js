@@ -4,7 +4,7 @@ import moment from "moment";
 import "moment/locale/es";
 import {StyleSheet} from "react-native";
 import BarcodeScannerVenta from "../helpers/BarcodeScannerVenta";
-import { FabIconAgregarNuevoProducto } from "../helpers/icons/icons";
+import { FabIconAgregarNuevoProducto,FabIconAgregarNuevaVenta, FabIconAgregarNuevoVenta } from "../helpers/icons/icons";
 import { AppContext } from "../context/context";
 import { DataTable } from 'react-native-paper';
 import { agregarProductoVenta} from "../helpers/sendSQL";
@@ -26,16 +26,31 @@ const Venta = () => {
         nombre: datosproducto[0].nombre,
         precio: datosproducto[0].precio
       }
-       setProductosEscaneados((prevProductos) => [...prevProductos, productos]);
-      console.log(productosEscaneados)
+      
+      try {
+        setProductosEscaneados((prevProductos) => {
+          return [...prevProductos, productos];
+        });
+      } catch (error) {
+        console.log("Error al ingresar la venta de", productos, error);
+      }
     } catch (error) {
       console.error("Error al manejar el código de barras escaneado:", error);
     }
   };
 
+  const concretarVenta = () => {
+    alert("concretando venta")
+  }
+
   useEffect(() => {
-    mostrandoFechaActual();
-  }, []);
+    console.log("Productos escaneados actualizados:", productosEscaneados.length == 0? "":productosEscaneados.length);
+  }, [productosEscaneados])
+
+
+  useEffect(() => {
+  
+  }, [mostrandoFechaActual]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -52,6 +67,7 @@ const Venta = () => {
             </View>
           </View>
         )}
+            
         <ScrollView>
           <View>
             <Text
@@ -63,14 +79,16 @@ const Venta = () => {
                 textAlign: "center"
               }}
             >
-             <Text style={{fontSize: 14, textAlign: "center"}}>{fechaActual}</Text>
+             <Text style={{fontSize: 14, textAlign: "center"}}>
+              {fechaActual}
+              </Text>
             </Text>
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title style={{display:"flex", justifyContent:"center"}} >
                   Nombre
                 </DataTable.Title >
-                <DataTable.Title numeric style={{display:"flex", justifyContent:"center"}}>Precio</DataTable.Title>
+                <DataTable.Title numeric style={{display:"flex", justifyContent:"center"}}>Precio</DataTable.Title>              
             </DataTable.Header>
             </DataTable>
             {productosEscaneados.map((producto, index) => (
@@ -78,7 +96,7 @@ const Venta = () => {
               key={index}
               
              >
-              <DataTable.Cell style={{ justifyContent:"center"}}>{producto.nombre}</DataTable.Cell>
+              <DataTable.Cell style={{ justifyContent:"center"}}>{index + 1}{"   "}{producto.nombre}</DataTable.Cell>
               <DataTable.Cell style={{ justifyContent:"center"}}>{producto.precio}</DataTable.Cell>  
              </DataTable.Row>
               
@@ -86,7 +104,12 @@ const Venta = () => {
           </View>
         </ScrollView>
       </View>
-      <FabIconAgregarNuevoProducto />
+      
+       
+        <FabIconAgregarNuevoVenta concretarVenta={concretarVenta} />
+        <FabIconAgregarNuevoProducto/> 
+
+      
     </View>
   );
 };

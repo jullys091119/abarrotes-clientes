@@ -94,7 +94,6 @@ export const agregarProductoVenta = async (codigoBarras ) => {
     });
   }
   });
-
  return productos
 }
 
